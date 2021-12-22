@@ -3,7 +3,7 @@
     <div x-data class="flex flex-col items-center justify-center space-y-8">
         <h1 class="font-semibold text-lg text-gray-700 text-opacity-70 tracking-wide">{{ __('Welcome Back!') }}</h1>
 
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('login') }}" method="POST" class="login-form">
             @csrf
 
             <div class="flex flex-col space-y-4 mb-8">
@@ -30,7 +30,7 @@
 				</a>
             </div>
 
-            <x-buttons.primary class="block py-sm mt-6" @click.prevent="document.querySelector('form').submit()">
+            <x-buttons.primary class="block py-sm mt-6" @click.prevent="document.querySelector('.login-form').submit()">
                 {{ __('Login') }}
             </x-buttons.primary>
         </form>

@@ -6,7 +6,7 @@
         <p class="text-sm text-center text-gray-500 text-opacity-80 tracking-wide">
             {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, debitis.') }}</p>
 
-        <form action="{{ route('register') }}" method="POST">
+        <form action="{{ route('register') }}" method="POST" class="register-form">
             @csrf
 
             <div class="flex flex-col space-y-4 mb-8">
@@ -48,7 +48,7 @@
             </div>
 
             
-            <x-buttons.primary class="block py-sm mt-6" @click.prevent="document.querySelector('form').submit()">
+            <x-buttons.primary class="block py-sm mt-6" @click.prevent="document.querySelector('register-form').submit()">
                 {{ __('Register') }}
             </x-buttons.primary>
         </form>

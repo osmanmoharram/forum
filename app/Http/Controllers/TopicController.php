@@ -43,7 +43,7 @@ class TopicController extends Controller
      */
     public function store(TopicRequest $request)
     {
-        dd($request->all());
+        dd($request->validated());
         Topic::create($request->validated());
 
         return redirect()

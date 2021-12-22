@@ -17,6 +17,13 @@ class TopicRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'tags' => explode(',', $this->input('tags'))
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,9 +34,7 @@ class TopicRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:70',
             'body' => 'required|min:3',
-            'tags.primary' => 'required|exists:tags,name',
-            'tags.secondary' => 'required|exists:tags,name',
-            'tags.optional' => 'required|exists:tags,name',
+            'tags' => 'required',
         ];
     }
 

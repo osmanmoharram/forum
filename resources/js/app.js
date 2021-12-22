@@ -34,7 +34,7 @@ window.md = new markdownIt({
 	highlight: function (str, lang) {
 		if (lang && hljs.getLanguage(lang)) {
 		  try {
-			return `<pre><code class="hljs ${lang} p-2 rounded-md h-xl">` +
+			return `<pre><code class="hljs ${lang} p-2 rounded-md">` +
 				   hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
 				   `</code></pre>`;
 		  } catch (__) {}

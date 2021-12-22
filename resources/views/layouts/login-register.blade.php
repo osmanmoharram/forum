@@ -1,5 +1,4 @@
 <x-guest-layout>
-    <!-- Login Or Resgister -->
     <x-slot name="action"></x-slot>
 
     <!-- Page Content -->

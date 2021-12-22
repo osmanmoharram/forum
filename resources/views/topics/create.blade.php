@@ -6,12 +6,17 @@
         
         addTag(newTag) {
             this.newTag = '';
+
+            if(newTag.replace(/^\s+|\s+$/gm,'') === '') {
+                return alert('tag cannot be empty');
+            }
+
             for(tag of this.tags) {
                 if(tag === newTag) {
-                    return alert('this tag already added!');
+                    return alert(newTag + ' tag already added!');
                 }
             }
-            this.tags.push(newTag);
+            this.tags.push(newTag.trim());
         },
 
         removeTag(newTag){
@@ -30,7 +35,7 @@
     }" class="flex flex-col space-y-8 lg:space-y-0 lg:flex-row lg:space-x-8 items-start">
 
         <div class="w-full lg:flex-1">
-            <form action="{{ route('topics.store') }}" method="POST" @submit.prevent>
+            <form action="{{ route('topics.store') }}" method="POST" class="new-topic-form" @submit.prevent>
                 @csrf
 
                 <div class="shadow rounded-md overflow-hidden">
@@ -71,14 +76,14 @@
                                                 x-model="newTag"
                                                 @keydown.enter="addTag(newTag); $dispatch('submit.prevent')" />
                                 </div>
-                                <ul id="tagsList" class="mt-4 flex items-center space-x-1">
+                                <ul class="mt-4 flex items-center space-x-1">
                                     <template x-for="tag in tags">
                                         <li class="bg-gray-100 p-2 font-bold space-x-1 rounded-md text-xs text-gray-700 text-opacity-70">
                                             <span x-text="tag"></span>
                                             <span class="cursor-pointer" @click.prevent="removeTag(tag);">&times;</span>
-                                            <input type="text" class="hidden" name="tags[]" value="tag">
                                         </li>
                                     </template>
+                                    <input id="tagsList" type="hidden" name="tags" x-model="tags">
                                 </ul>
                             </div>
                         </div>
@@ -88,7 +93,7 @@
                                                     @click="show = ! show"
                                                     class="py-sm w-28 text-sm" />
 
-                            <x-buttons.primary class="py-sm w-28" @click="document.querySelector('form').submit()">
+                            <x-buttons.primary class="py-sm w-28" @click="document.querySelector('.new-topic-form').submit();">
                                 {{ __('Post') }}
                             </x-buttons.primary>
                         </div>
@@ -100,11 +105,11 @@
         <div class="w-full lg:flex-1">
             <div class="relative">
                 <!-- Template -->
-                <div id="template" x-show="show" class="absolute w-full" style="display: none"></div>
+                <div id="template" x-show="show" class="absolute w-full h-xl rounded-md shadow p-6" style="background: white;"></div>
     
                 <!-- Preview Area -->
                 <div class="flex items-center justify-center text-gray-700 text-opacity-60 border-2 border-gray-700 border-opacity-60 border-dashed rounded-md h-xl">
-                    {{ __('Preview code') }}
+                    {{ __('Preview Topic Body') }}
                 </div>
             </div>
 
