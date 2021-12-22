@@ -13,6 +13,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css\highlight.js\styles\tomorrow-night-blue.css') }}">
 </head>
 
 <body class="overflow-hidden font-roboto antialiased">

@@ -1,24 +1,33 @@
 <x-app-layout>
-    <div x-data="{ 
-            show: false,
-            tags: [],
-            newTag: '',
+    <div x-data="{
+        show: false,
+        tags: [],
+        newTag: '',
+        
+        addTag(newTag) {
+            this.newTag = '';
+            for(tag of this.tags) {
+                if(tag === newTag) {
+                    return alert('this tag already added!');
+                }
+            }
+            this.tags.push(newTag);
+        },
 
-            removeTag(tag) {
-                filterd = this.tags.filter((tag) => {
-                    return tag !== removeTag;
-                });
+        removeTag(newTag){
+            let filtered = this.tags.filter((tag) => {
+                return tag !== newTag;
+            });
+            this.tags = filtered;
+        },
 
-                console.log(filterd);
-            },
+        preview() {
+            const code = document.getElementById('body').value;	
+            const template = document.getElementById('template');
 
-            addTag(tag) {
-                this.tags.push(tag);
-
-                this.newTag = '';
-            },
-
-        }" class="flex flex-col lg:flex-row items-start space-y-8 lg:space-y-0 lg:space-x-8">
+            template.innerHTML = md.render(code);
+        }
+    }" class="flex flex-col space-y-8 lg:space-y-0 lg:flex-row lg:space-x-8 items-start">
 
         <div class="w-full lg:flex-1">
             <form action="{{ route('topics.store') }}" method="POST" @submit.prevent>
@@ -43,10 +52,10 @@
                         <div>
                             <label for="body" class="block text-sm font-medium text-gray-700 text-opacity-60">{{ __('Body') }}</label>
                             <div class="mt-1">
-                                <textarea id="body"
+                                <textarea   id="body"
                                             name="body"
-                                            rows="10"
-                                            class="p-2 text-gray-700 text-opacity-90 shadow-sm focus:ring-4 focus:ring-blue-200 focus:border-blue-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md transition duration-200 ease-in-out placeholder-gray-300"
+                                            @blur.prevent="preview"
+                                            class="p-2 text-gray-700 text-opacity-90 shadow-sm focus:ring-4 focus:ring-blue-200 focus:border-blue-500 mt-1 block w-full h-64 sm:text-sm border border-gray-300 rounded-md transition duration-200 ease-in-out placeholder-gray-300"
                                             placeholder="Provide further details about the topic ..."></textarea>
                             </div>
                         </div>
@@ -74,15 +83,14 @@
                             </div>
                         </div>
 
-                        <div class="text-right space-x-1">
-                            <button type="button"
-                                    @click="show = ! show;"
-                                    x-text="show === true ? 'Hide Preview' : 'Show Preview'"
-                                    class="py-2 w-28 text-sm font-medium rounded-md text-gray-700 text-opacity-60 bg-gray-200 bg-opacity-70 hover:bg-gray-200 transition duration-200 ease-in-out"></button>
+                        <div class="flex items-center justify-end space-x-2">
+                            <x-buttons.secondary x-text="show === true ? 'Hide Preview' : 'Show Preview'"
+                                                    @click="show = ! show"
+                                                    class="py-sm w-28 text-sm" />
 
-                            <button type="button" @click="submit" class="py-2 w-24 text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition duration-200 ease-in-out">
+                            <x-buttons.primary class="py-sm w-28" @click="document.querySelector('form').submit()">
                                 {{ __('Post') }}
-                            </button>
+                            </x-buttons.primary>
                         </div>
                     </div>
                 </div>
@@ -90,19 +98,16 @@
         </div>
 
         <div class="w-full lg:flex-1">
-            <div>
-                <div x-ref="template"
-                    x-show="show"
-                    class="bg-white p-6 shadow rounded-md space-y-6"
-                    style="display: none">
+            <div class="relative">
+                <!-- Template -->
+                <div id="template" x-show="show" class="absolute w-full" style="display: none"></div>
     
-                    <section class=""></section>
-                </div>
-    
-                <div x-show="! show" class="flex items-center justify-center text-gray-700 text-opacity-60 border-2 border-gray-700 border-opacity-60 border-dashed rounded-md h-96">
+                <!-- Preview Area -->
+                <div class="flex items-center justify-center text-gray-700 text-opacity-60 border-2 border-gray-700 border-opacity-60 border-dashed rounded-md h-xl">
                     {{ __('Preview code') }}
                 </div>
             </div>
+
             <div class="mt-6 flex items-center text-gray-700 text-opacity-60 text-sm space-x-6">
                 <span class="block">
                     {{ __('**') }}<strong>{{ __('Bold') }}</strong>{{ __('**') }}

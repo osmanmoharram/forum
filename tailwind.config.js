@@ -16,6 +16,7 @@ module.exports = {
             spacing: {
                 xs: "6px;",
                 sm: "9px;",
+                xl: "495px"
             },
 
             colors: {

@@ -3,7 +3,6 @@
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
-use Michelf\Markdown;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,13 +14,6 @@ use Michelf\Markdown;
 |
 */
 
-
-// Route::resource('topics', TopicController::class);
-
-Route::get('/', function () {
-	return view('topics.index', [
-		'codeBlock' => $my_html = Markdown::defaultTransform($my_text)
-	]);
-});
+Route::resource('topics', TopicController::class);
 
 require __DIR__.'/auth.php';
