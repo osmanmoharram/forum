@@ -1,13 +1,7 @@
-<x-auth-layout>
-    <x-slot name="authAction">
-        <x-link href="{{ route('login') }}" class="text-blue-500 bg-blue-50 hover:bg-blue-100">
-            {{ __('Login') }}
-        </x-link>
-    </x-slot>
-
+<x-login-register-layout>
     <!-- Registration Form -->
-    <div class="flex flex-col items-center justify-center space-y-8">
-        <h1 class="font-semibold text-lg text-gray-500 tracking-wide">{{ __('Join Our Community') }}</h1>
+    <div x-data class="flex flex-col items-center justify-center space-y-8">
+        <h1 class="font-semibold text-lg text-gray-700 text-opacity-70 tracking-wide">{{ __('Join Our Community') }}</h1>
 
         <p class="text-sm text-center text-gray-500 text-opacity-80 tracking-wide">
             {{ __('Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, debitis.') }}</p>
@@ -53,17 +47,19 @@
                 </div>
             </div>
 
-            <x-button type="submit" class="w-72 hover:shadow-lg">
+            
+            <x-buttons.primary class="block py-sm mt-6" @click.prevent="document.querySelector('form').submit()">
                 {{ __('Register') }}
-            </x-button>
+            </x-buttons.primary>
         </form>
 
-        <a href="#"
-            class="text-sm text-gray-500 text-opacity-80 tracking-wide hover:underline hover:text-blue-500 transition duration-200 ease-in-out">{{ __('Already have an account?') }}</a>
+        <a href="{{ route('login') }}" class="text-sm text-gray-700 text-opacity-60 tracking-wide hover:underline hover:text-primary transition duration-200 ease-in-out">
+            {{ __('Already have an account?') }}
+        </a>
     </div>
 
     <!-- Registration Form -->
     <x-slot name="illustration">
         <img src="{{ asset('img/register.svg') }}" alt="register" class="">
     </x-slot>
-</x-auth-layout>
+</x-login-register-layout>

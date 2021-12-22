@@ -806,16 +806,16 @@ select {
   }
 }
 
-.text-main {
+.txt-color-main {
   --tw-text-opacity: 1;
   color: rgba(55, 65, 81, var(--tw-text-opacity));
-  --tw-text-opacity: 0.6
+  --tw-text-opacity: 0.6;
 }
 
-.text-secondary {
+.txt-color-second {
   --tw-text-opacity: 1;
   color: rgba(55, 65, 81, var(--tw-text-opacity));
-  --tw-text-opacity: 0.4
+  --tw-text-opacity: 0.6;
 }
 
 .sr-only {

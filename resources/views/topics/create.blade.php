@@ -1,5 +1,24 @@
 <x-app-layout>
-    <div x-data="data()" class="flex flex-col lg:flex-row items-start space-y-8 lg:space-y-0 lg:space-x-8">
+    <div x-data="{ 
+            show: false,
+            tags: [],
+            newTag: '',
+
+            removeTag(tag) {
+                filterd = this.tags.filter((tag) => {
+                    return tag !== removeTag;
+                });
+
+                console.log(filterd);
+            },
+
+            addTag(tag) {
+                this.tags.push(tag);
+
+                this.newTag = '';
+            },
+
+        }" class="flex flex-col lg:flex-row items-start space-y-8 lg:space-y-0 lg:space-x-8">
 
         <div class="w-full lg:flex-1">
             <form action="{{ route('topics.store') }}" method="POST" @submit.prevent>
@@ -47,7 +66,7 @@
                                     <template x-for="tag in tags">
                                         <li class="bg-gray-100 p-2 font-bold space-x-1 rounded-md text-xs text-gray-700 text-opacity-70">
                                             <span x-text="tag"></span>
-                                            <span class="cursor-pointer" @click="removeTag(tag)">&times;</span>
+                                            <span class="cursor-pointer" @click.prevent="removeTag(tag);">&times;</span>
                                             <input type="text" class="hidden" name="tags[]" value="tag">
                                         </li>
                                     </template>
@@ -81,28 +100,23 @@
                 </div>
     
                 <div x-show="! show" class="flex items-center justify-center text-gray-700 text-opacity-60 border-2 border-gray-700 border-opacity-60 border-dashed rounded-md h-96">
-                    {{ __('Preview code')}}
+                    {{ __('Preview code') }}
                 </div>
             </div>
             <div class="mt-6 flex items-center text-gray-700 text-opacity-60 text-sm space-x-6">
                 <span class="block">
-                    **<strong>Bold</strong>**
+                    {{ __('**') }}<strong>{{ __('Bold') }}</strong>{{ __('**') }}
                 </span>
                 <div class="flex items-center">
-                    <span class="block">```</span>
-                    <span class="mt-1 inline-block text-xs px-2 py-1 rounded-md border bg-gray-50 shadow-sm"><code>code</code></span>
-                    <span class="block mt-1">```</span>
+                    <span class="block">{{ __('```') }}</span>
+                    <span class="mt-1 inline-block text-xs px-2 py-1 rounded-md border bg-gray-50 shadow-sm"><code>{{ __('code') }}</code></span>
+                    <span class="block mt-1">{{ __('```') }}</span>
                 </div>
                 <span class="block">
-                    *<i>Italic</i>*
+                    {{ __('*') }}<i>{{ __('Italic') }}</i>{{ __('*') }}
                 </span>
-                <span class="block">
-                    >quote
-                </span>
+                <span class="block"> {{ __('>quote') }} </span>
             </div>
         </div>
     </div>
 </x-app-layout>
-
-@push('scripts')
-@endpush

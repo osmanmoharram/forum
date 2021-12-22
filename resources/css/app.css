@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-	.text-main {
-		@apply text-gray-700 text-opacity-60
+	.txt-color-main {
+		@apply text-gray-700 text-opacity-60;
 	}
 
-	.text-secondary {
-		@apply text-gray-700 text-opacity-40
+	.txt-color-second {
+		@apply text-gray-700 text-opacity-60;
 	}
 }
