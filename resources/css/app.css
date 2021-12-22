@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.text-main {
+		@apply text-gray-700 text-opacity-60
+	}
+
+	.text-secondary {
+		@apply text-gray-700 text-opacity-40
+	}
+}
