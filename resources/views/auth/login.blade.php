@@ -8,7 +8,10 @@
 
             <div class="flex flex-col space-y-4 mb-8">
 				<div>
-					<x-input type="email" name="email" placeholder="What's your email?" />
+					<x-fields.label for="email" value="email" />
+
+					<x-fields.input class="w-72" type="email" name="email" placeholder="What's your email?" />
+
 					@error('email')
 						<span class="block text-red-500 text-xs mt-1 ml-1">
 							{{ $message }}
@@ -17,7 +20,10 @@
 				</div>
     
 				<div>
-					<x-input type="password" name="password" placeholder="What's the magic word?" />
+					<x-fields.label for="password" value="password" />
+					
+					<x-fields.input class="w-72" type="password" name="password" placeholder="What's the magic word?" />
+
 					@error('password')
 						<span class="block text-red-500 text-xs mt-1 ml-1">
 							{{ $message }}

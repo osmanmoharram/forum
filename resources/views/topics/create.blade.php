@@ -40,62 +40,52 @@
 
                 <div class="shadow rounded-md overflow-hidden">
                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                        <div class="grid grid-cols-3 gap-6">
-                            <div class="col-span-3">
-                                <label for="title" class="block text-sm font-medium text-gray-700 text-opacity-60">{{ __('Title') }}</label>
-                                <div class="rounded-md shadow-sm">
-                                    <x-input type="text"
-                                                id="title"
-                                                name="title"
-                                                :value="old('title')"
-                                                placeholder="e.g. How to create a new Laravel application?"
-                                                class="p-2 text-gray-700 text-opacity-90 focus:ring-4 focus:ring-blue-200 focus:border-blue-500 block w-full rounded-md sm:text-sm border border-gray-300 transition duration-200 ease-in-out placeholder-gray-300" />
-                                </div>
-                            </div>
+                        <div>
+                            <x-fields.label for="title" value="title" />
+
+                            <x-fields.input type="text" class="w-full" id="title" name="title" :value="old('title')" placeholder="e.g. How to create a new Laravel application?" />
+
+                            @error('title')
+                                <p>{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label for="body" class="block text-sm font-medium text-gray-700 text-opacity-60">{{ __('Body') }}</label>
-                            <div class="mt-1">
-                                <textarea   id="body"
-                                            name="body"
-                                            @blur.prevent="preview"
-                                            class="p-2 text-gray-700 text-opacity-90 shadow-sm focus:ring-4 focus:ring-blue-200 focus:border-blue-500 mt-1 block w-full h-64 sm:text-sm border border-gray-300 rounded-md transition duration-200 ease-in-out placeholder-gray-300"
-                                            placeholder="Provide further details about the topic ..."></textarea>
-                            </div>
+                            <x-fields.label for="body" value="body" />
+
+                            <x-fields.textarea type="text" class="w-full h-64" id="body" name="body" :value="old('body')" placeholder="e.g. Provide further details about your topic?" />
+
+                            @error('body')
+                                <p>{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label for="tags" class="block text-sm font-medium text-gray-700 text-opacity-60">{{ __('Tags') }}</label>
-                            <div class="mt-1">
-                                <div class="rounded-md shadow-sm">
-                                    <x-input type="text"
-                                                id="tags"
-                                                placeholder="e.g. Laravel, Javascript, Mysql"
-                                                class="p-2 text-gray-700 text-opacity-90 focus:ring-4 focus:ring-blue-200 focus:border-blue-500 block w-full rounded-md sm:text-sm border border-gray-300 transition duration-200 ease-in-out placeholder-gray-300"
-                                                x-model="newTag"
-                                                @keydown.enter="addTag(newTag); $dispatch('submit.prevent')" />
-                                </div>
-                                <ul class="mt-4 flex items-center space-x-1">
-                                    <template x-for="tag in tags">
-                                        <li class="bg-gray-100 p-2 font-bold space-x-1 rounded-md text-xs text-gray-700 text-opacity-70">
-                                            <span x-text="tag"></span>
-                                            <span class="cursor-pointer" @click.prevent="removeTag(tag);">&times;</span>
-                                        </li>
-                                    </template>
-                                    <input id="tagsList" type="hidden" name="tags" x-model="tags">
-                                </ul>
-                            </div>
+                            <x-fields.label for="tags" value="Tags" />
+
+                            <x-fields.input type="text" id="tags" class="w-full" placeholder="e.g. Laravel, Javascript, Mysql"
+                                x-model="newTag"
+                                @keydown.enter="addTag(newTag); $dispatch('submit.prevent')" />
+
+
+                            <ul class="mt-4 flex items-center space-x-1">
+                                <template x-for="tag in tags">
+                                    <li class="bg-gray-100 p-2 font-bold space-x-1 rounded-md text-xs text-gray-700 text-opacity-70">
+                                        <span x-text="tag"></span>
+                                        <span class="cursor-pointer" @click.prevent="removeTag(tag);">&times;</span>
+                                    </li>
+                                </template>
+
+                                <input id="tagsList" type="hidden" name="tags" x-model="tags">
+                            </ul>
                         </div>
 
                         <div class="flex items-center justify-end space-x-2">
-                            <x-buttons.secondary x-text="show === true ? 'Hide Preview' : 'Show Preview'"
-                                                    @click="show = ! show"
-                                                    class="py-sm w-28 text-sm" />
+                            <x-buttons.secondary class="py-sm w-28"
+                                x-text="show === true ? 'Hide Preview' : 'Show Preview'" @click="show = ! show" />
 
-                            <x-buttons.primary class="py-sm w-28" @click="document.querySelector('.new-topic-form').submit();">
-                                {{ __('Post') }}
-                            </x-buttons.primary>
+                            <x-buttons.primary class="py-sm w-28" value="post"
+                                @click="document.querySelector('.new-topic-form').submit();" />
                         </div>
                     </div>
                 </div>
