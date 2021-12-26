@@ -19,9 +19,9 @@ class TopicRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $this->merge([
-            'tags' => explode(',', $this->input('tags'))
-        ]);
+        // $this->merge([
+        //     'tags' => explode(',', $this->input('tags'))
+        // ]);
     }
 
     /**
@@ -40,6 +40,9 @@ class TopicRequest extends FormRequest
 
     public function validated()
     {
-        return Arr::add(parent::validated(), 'creator_id', auth()->id());
+        return array_merge(parent::validated(), [
+            'creator_id' => auth()->id(),
+            'tags' => explode(',', parent::validated()['tags']),
+        ]);
     }
 }

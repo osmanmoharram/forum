@@ -22,7 +22,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return view('topics.index');
+        return view('topics.index')->with('topics', Topic::paginate(50));
     }
 
     /**
@@ -32,7 +32,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        return view('topics.create')->with('tags', Tag::all());
+        return view('topics.create');
     }
 
     /**
@@ -43,11 +43,14 @@ class TopicController extends Controller
      */
     public function store(TopicRequest $request)
     {
-        Topic::create($request->validated());
+        $topic = Topic::create($request->safe()->only(['title', 'body']));
 
-        return redirect()
-            ->route('topics.index')
-            ->with('success', trans('flash.success', ['resource' => 'topic']));
+        $this->createAssociatedTags($request->safe()->only('tags'), $topic);
+
+        //when creator have friends
+        // event(CreatedTopic::class);
+
+        return redirect()->route('topics.index');
     }
 
     /**
@@ -93,5 +96,14 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
         //
+    }
+
+    protected function createAssociatedTags($tags, $topic) : void
+    {
+        foreach($tags as $tag) {
+            if(Tag::where('name', $tag)->exists()) {
+                $topic->tags()->create([ 'name' => $tag ]);
+            };   
+        }
     }
 }

@@ -1,19 +1,19 @@
 <x-login-register-layout>
     <!-- Login Form -->
-    <div x-data class="flex flex-col items-center justify-center space-y-8">
+    <div x-data class="flex flex-col items-center justify-center space-y-6">
         <h1 class="font-semibold text-lg text-gray-700 text-opacity-70 tracking-wide">{{ __('Welcome Back!') }}</h1>
 
         <form action="{{ route('login') }}" method="POST" class="login-form">
             @csrf
 
-            <div class="flex flex-col space-y-4 mb-8">
+            <div class="flex flex-col space-y-3 mb-8">
 				<div>
 					<x-fields.label for="email" value="email" />
 
 					<x-fields.input class="w-72" type="email" name="email" placeholder="What's your email?" />
 
 					@error('email')
-						<span class="block text-red-500 text-xs mt-1 ml-1">
+						<span class="block text-red-500 text-xs font-medium mt-2 ml-1">
 							{{ $message }}
 						</span>
 					@enderror
@@ -25,7 +25,7 @@
 					<x-fields.input class="w-72" type="password" name="password" placeholder="What's the magic word?" />
 
 					@error('password')
-						<span class="block text-red-500 text-xs mt-1 ml-1">
+						<span class="block text-red-500 text-xs font-medium mt-2 ml-1">
 							{{ $message }}
 						</span>
 					@enderror

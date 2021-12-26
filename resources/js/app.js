@@ -26,7 +26,7 @@ window.md = new markdownIt({
 	//
 	// For example, you can use '«»„“' for Russian, '„“‚‘' for German,
 	// and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
-	// quotes: '“”‘’',
+	quotes: '“”<<>>‘’',
   
 	// Highlighter function. Should return escaped HTML,
 	// or '' if the source string is not changed and should be escaped externally.
@@ -35,7 +35,7 @@ window.md = new markdownIt({
 		if (lang && hljs.getLanguage(lang)) {
 		  try {
 			return `<pre><code class="hljs ${lang} p-2 rounded-md">` +
-				   hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+				   hljs.highlightAuto(str, { language: lang, ignoreIllegals: true }).value +
 				   `</code></pre>`;
 		  } catch (__) {}
 		}

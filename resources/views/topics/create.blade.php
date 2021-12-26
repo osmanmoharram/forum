@@ -27,10 +27,10 @@
         },
 
         preview() {
-            const code = document.getElementById('body').value;	
-            const template = document.getElementById('template');
+            const body = document.getElementById('body').value;	
+            const previewField = document.getElementById('previewField');
 
-            template.innerHTML = md.render(code);
+            previewField.innerHTML = md.render(body);
         }
     }" class="flex flex-col space-y-8 lg:space-y-0 lg:flex-row lg:space-x-8 items-start">
 
@@ -46,17 +46,26 @@
                             <x-fields.input type="text" class="w-full" id="title" name="title" :value="old('title')" placeholder="e.g. How to create a new Laravel application?" />
 
                             @error('title')
-                                <p>{{ $message }}</p>
+                                <span class="block text-red-500 text-xs font-medium mt-2 ml-1">
+                                    {{ $message }}
+                                </span>
                             @enderror
                         </div>
 
                         <div>
                             <x-fields.label for="body" value="body" />
 
-                            <x-fields.textarea type="text" class="w-full h-64" id="body" name="body" :value="old('body')" placeholder="e.g. Provide further details about your topic?" />
+                            <x-fields.textarea
+                                type="text"
+                                class="w-full h-56"
+                                id="body" name="body"
+                                :value="old('body')" placeholder="e.g. Provide further details about your topic?"
+                                @blur="preview" />
 
                             @error('body')
-                                <p>{{ $message }}</p>
+                                <span class="block text-red-500 text-xs font-medium mt-2 ml-1">
+                                    {{ $message }}
+                                </span>
                             @enderror
                         </div>
 
@@ -67,6 +76,11 @@
                                 x-model="newTag"
                                 @keydown.enter="addTag(newTag); $dispatch('submit.prevent')" />
 
+                            @error('tags')
+                                <span class="block text-red-500 text-xs font-medium mt-2 ml-1">
+                                    {{ $message }}
+                                </span>
+                            @enderror
 
                             <ul class="mt-4 flex items-center space-x-1">
                                 <template x-for="tag in tags">
@@ -94,8 +108,8 @@
 
         <div class="w-full lg:flex-1">
             <div class="relative">
-                <!-- Template -->
-                <div id="template" x-show="show" class="absolute w-full h-xl rounded-md shadow p-6" style="background: white;"></div>
+                <!-- Preview Field -->
+                <div id="previewField" x-show="show" class="bg-white absolute w-full h-xl rounded-md shadow p-6" style="display: none;"></div>
     
                 <!-- Preview Area -->
                 <div class="flex items-center justify-center text-gray-700 text-opacity-60 border-2 border-gray-700 border-opacity-60 border-dashed rounded-md h-xl">
