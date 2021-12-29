@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class TopicController extends Controller
 {
@@ -22,7 +23,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return view('topics.index')->with('topics', Topic::paginate(50));
+        $topics = Topic::search(request('search'))->paginate(50);
+
+        return view('topics.index')->with('topics', $topics);
     }
 
     /**
@@ -103,7 +106,7 @@ class TopicController extends Controller
         foreach($tags as $tag) {
             if(Tag::where('name', $tag)->exists()) {
                 $topic->tags()->create([ 'name' => $tag ]);
-            };   
+            };
         }
     }
 }

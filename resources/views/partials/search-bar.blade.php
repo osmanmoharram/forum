@@ -1,11 +1,20 @@
-<div class="mb-8 flex items-center overflow-hidden bg-gray-200 bg-opacity-50 h-12 rounded-md border-gray-200">
-    <div class="pl-4 flex items-center justify-center">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z"
-                fill="#323232" fill-opacity="0.3" />
-        </svg>
-    </div>
+<form
+    action="{{ route('topics.index') }}"
+    method="GET"
+    class="mb-8 flex items-center overflow-hidden bg-gray-200 bg-opacity-80
+    text-gray-700 text-opacity-60 rounded-md">
 
-    <input type="text" class="w-full bg-transparent border-none ring-0 focus:ring-0 outline-none focus:outline-none">
-</div>
+    @csrf
+
+    <button type="submit" class="m-1 p-2 hover:bg-gray-300 hover:bg-opacity-50 text-gray-700 text-opacity-40 rounded-md transition duration-200 ease-in-out">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+    </button>
+
+    <input
+        type="text"
+        name="search"
+        value="{{ request('search') ?? '' }}"
+        class="w-full bg-transparent p-0 border-none ring-0 focus:ring-0 outline-none focus:outline-none">
+</form>

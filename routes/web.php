@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TopicController;
+use App\Models\Topic;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('topics', TopicController::class);
+
+
+
+Route::get('search', function() {
+});
+
 
 require __DIR__.'/auth.php';
