@@ -23,7 +23,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::search(request('search'))->paginate(50);
+        $topics = Topic::search('Facilis')->get();
 
         return view('topics.index')->with('topics', $topics);
     }

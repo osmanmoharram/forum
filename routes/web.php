@@ -20,8 +20,10 @@ Route::resource('topics', TopicController::class);
 
 
 
-Route::get('search', function() {
-});
+// Route::get('redis', function() {
+//     dd('here');
+//     $redis = app()->make('redis');
+// });
 
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

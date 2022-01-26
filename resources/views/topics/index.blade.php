@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="max-w-3xl lg:ml-24 space-y-6">
         @include('partials.search-bar')
+        <div id="autocomplete"></div>
 
         @forelse ($topics as $topic)
             <div class="bg-white p-6 shadow rounded-md space-y-5">
@@ -109,6 +110,6 @@
         @empty
             <span>no topics</span>
         @endforelse
-        {{ $topics->links() }}
+        {{-- {{ $topics->links() }} --}}
     </div>
 </x-app-layout>
